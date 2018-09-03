@@ -1,21 +1,28 @@
-# Project1
+# COP5615 - Project 1
 
-**TODO: Add description**
+Find _k_ consecutive numbers whose sum of squares is a perfect square.
 
-## Installation
+## Getting Started
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `project1` to your list of dependencies in `mix.exs`:
+**Input :** Two integers _N_ and _k_. The program finds all _k_ consecutive numbers starting at 1 and up to _N_, such that the sum of squares is itself a perfect square.
 
-```elixir
-def deps do
-  [
-    {:project1, "~> 0.1.0"}
-  ]
-end
+**Output :** The first number in the sequence for each set of consecutive integers printed on independent lines.
+
+**Example :**
+```
+$ mix run proj1.exs 40 24
+1
+9
+20
+25
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/project1](https://hexdocs.pm/project1).
+## Running tests
 
+Run the tests using `mix test`
+
+
+## Authors
+
+* **Aditi Malladi**
+* **Suraj Thanugundla**
