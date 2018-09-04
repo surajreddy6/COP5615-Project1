@@ -1,4 +1,4 @@
-defmodule Worker do
+ defmodule Worker do
     use Task
 
     def start_link(arg) do
@@ -17,8 +17,8 @@ defmodule Worker do
         # IO.puts inspect squared_list
 
         Enum.each 0..work_unit-1, fn index ->
-            if Enum.slice(squared_list, index, k) 
-            |> Enum.sum 
+            if Enum.slice(squared_list, index, k)
+            |> Enum.sum
             |> is_perfect_square? do
                 Counter.put(counter_agent, Enum.fetch!(list, index)) # Use Enum.fetch!/2 and not Enum.fetch/2
             end
@@ -26,7 +26,7 @@ defmodule Worker do
 
         # Test code
         # Enum.each 0..work_unit-1, fn index ->
-        #     sq_list = Enum.slice(squared_list, index, k) 
+        #     sq_list = Enum.slice(squared_list, index, k)
         #     sum = Enum.sum(sq_list)
         #     sq_root = :math.sqrt(sum)
         #     IO.puts "List: #{inspect sq_list} Sum: #{sum} Sq root: #{sq_root}"

@@ -1,23 +1,34 @@
-IO.puts "WARNING: Running as a single process"
+[n, k] = System.argv
+{n, _} = Integer.parse(n)
+{k, _}= Integer.parse(k)
 
-[w, k] = System.argv
-{w, _} = Integer.parse(w)
-{k, _} = Integer.parse(k)
 
-s = 1
+worker_unit = 45
+{:ok, counter_pid} = Counter.start_link([])
 
-{:ok, agent} = Counter.start_link([])
+start_list = :lists.seq(1, n, worker_unit)
 
-{time, :ok} = :timer.tc(Worker, :run, [[k, s, w, agent]])
-
-pretty_print = fn list ->
-    sorted_list = Enum.sort(list)
-    Enum.each sorted_list, &IO.puts(&1)
+wrapper = fn (start_list, k, worker_unit, counter_pid) ->
+  Enum.each start_list, fn start ->
+    #TODO: Have to increase timeout for larger numbers
+    Task.async(Worker, :run, [[k, start, worker_unit, counter_pid]]) |> Task.await
+  end
 end
 
-pretty_print.(Counter.get(agent))
+{time, _} = :timer.tc(wrapper, [start_list, k, worker_unit, counter_pid])
 
-# IO.puts "Time to execute: #{time} microseconds"
+# Enum.each start_list, fn start ->
+#   #TODO: Have to increase timeout for larger numbers
+#   Task.async(Worker, :run, [[k, start, worker_unit, counter_pid]]) |> Task.await
+# end
+
+output_list = Counter.get(counter_pid)
 
 
+final_output = Enum.sort(output_list)
 
+Enum.each final_output, fn i ->
+  IO.puts(i)
+end
+
+IO.puts("Time: #{time/1000} milliseconds")
