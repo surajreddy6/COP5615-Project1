@@ -1,24 +1,28 @@
 defmodule Counter do
-    use Agent
+  use GenServer
 
-    @doc """
-    Starts a new agent and initialize with an empty list
-    """
-    def start_link(_opts) do
-        Agent.start_link(fn -> [] end)
-    end
+  def start_link(opts) do
+    GenServer.start_link(__MODULE__, :ok, opts)
+  end
 
-    @doc """
-    Puts a value in the list
-    """
-    def put(agent, value) do
-        Agent.update(agent, &([value | &1]))
-    end
+  def put(server, value) do
+    GenServer.call(server, {:update, value})
+  end
 
-    @doc """
-    Gets the list
-    """
-    def get(agent) do
-        Agent.get(agent, &(&1))
-    end
+  def get(server) do
+    GenServer.call(server, {:retrieve})
+  end
+
+  # Server API
+  def init(:ok) do
+    {:ok, []}
+  end
+
+  def handle_call({:update, value}, _from, values) do
+    {:reply, value, [value | values]}
+  end
+
+  def handle_call({:retrieve}, _from, values) do
+    {:reply, values, values}
+  end
 end

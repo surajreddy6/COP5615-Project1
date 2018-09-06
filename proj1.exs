@@ -2,22 +2,21 @@
 {n, _} = Integer.parse(n)
 {k, _} = Integer.parse(k)
 
-work_unit = 100
+work_unit = 5
 
 :erlang.statistics(:runtime)
 :erlang.statistics(:wall_clock)
 
-{:ok, agent} = Counter.start_link([])
+{:ok, server} = Counter.start_link([])
 
 start_points = :lists.seq(1, n, work_unit)
-
-tasks = Enum.map(start_points, &Task.async(Worker, :run, [[k, &1, work_unit, agent]]))
+tasks = Enum.map(start_points, &Task.async(Worker, :run, [[k, &1, work_unit, server]]))
 Enum.map(tasks, &Task.await(&1, 500000)) # Large timeout
 
 {_, t1} = :erlang.statistics(:runtime) # CPU time
 {_, t2} = :erlang.statistics(:wall_clock) # Real time
 
-result = Counter.get(agent)
+result = Counter.get(server)
 sorted_list = Enum.sort(result)
 Enum.each sorted_list, &IO.puts(&1)
 
