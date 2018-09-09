@@ -24,5 +24,5 @@ Run the tests using `mix test`
 
 ## Authors
 
-* **Aditi Malladi - 98286321**
-* **Suraj Thanugundla - 31009916**
+* **Aditi Malladi UFID: 9828-6321**
+* **Suraj Thanugundla UFID 3100-9916**
