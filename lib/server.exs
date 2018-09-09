@@ -4,14 +4,14 @@
 
 work_unit = 5
 node_list = [
-    :"foo@Aditis-MacBook-Pro",
-    :"bar@Aditis-MacBook-Pro"
+    :"foo@Aditis-MacBook-Pro.local",
+    :"bar@172.16.107.182"
 ]
 
 num_nodes = length(node_list)
 
 node_names = Enum.map(0..num_nodes-1, fn (i) ->
-   "NodeB" <> Integer.to_string(i) |> String.to_atom
+   "NodeC" <> Integer.to_string(i) |> String.to_atom
 end)
 
 #IO.puts "Len : #{num_nodes}"
@@ -55,7 +55,7 @@ end)
 # :timer.sleep(5000)
 Enum.map(0..num_nodes-1, fn (i) ->
     {:ok, pid} = Enum.fetch!(pids, i)
-    state_after_exec = :sys.get_state(pid)
+    state_after_exec = :sys.get_state(pid, :infinity)
 end)
 
 
