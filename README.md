@@ -24,5 +24,5 @@ Run the tests using `mix test`
 
 ## Authors
 
-* **Aditi Malladi**
-* **Suraj Thanugundla**
+* **Aditi Malladi - 98286321**
+* **Suraj Thanugundla - 31009916**
