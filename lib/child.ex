@@ -26,14 +26,22 @@ defmodule Child do
               i + work_unit - 1
             end
           end
-        tasks = Enum.map(0..length(start_points) - 1, fn(i) ->
-          Task.async(Worker, :run, [[k, Enum.fetch!(start_points, i), Enum.fetch!(end_points, i), counter]])
+        pids = Enum.map(0..length(start_points) - 1, fn(i) ->
+          Worker.start_link([])
         end)
-        # tasks = Enum.map(start_points, &Task.async(Worker, :run, [[k, &1, work_unit, counter]]))
-        Enum.map(tasks, &Task.await(&1, :infinity)) # Large timeout
+        Enum.map(0..length(start_points) - 1, fn(i) ->
+          {:ok, pid} = Enum.fetch!(pids, i)
+          Worker.compute(pid, [k, Enum.fetch!(start_points, i), Enum.fetch!(end_points, i), counter])
+        end)
+
+        Enum.map(0..length(start_points) - 1, fn (i) ->
+            {:ok, pid} = Enum.fetch!(pids, i)
+            state_after_exec = :sys.get_state(pid, :infinity)
+        end)
+        # # tasks = Enum.map(start_points, &Task.async(Worker, :run, [[k, &1, work_unit, counter]]))
+        # Enum.map(tasks, &Task.await(&1, :infinity)) # Large timeout
         state = Counter.get(counter)
         Listener.update(listener, state)
-
         {:noreply, state}
     end
 end
