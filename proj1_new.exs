@@ -5,21 +5,25 @@
 
 total_process_limit = 10000
 
-
 num_servers = 8
 
 server_process_limit = total_process_limit / num_servers |> :math.ceil |> Kernel.trunc
 
-# work_unit for each node
 work_unit =
-  if n > 100 do
-    (n / num_servers |> :math.ceil |> Kernel.trunc) / server_process_limit |>:math.ceil |> Kernel.trunc
+  if n > 150 do
+    ((n / num_servers |> :math.ceil |> Kernel.trunc) / server_process_limit) |>:math.ceil |> Kernel.trunc
   else
     5
   end
 
 # calculating start and end points for each child node based on input "n"
 start_points = :lists.seq(1, n, n/num_servers |> :math.ceil |> Kernel.trunc)
+
+
+# if length(start_points) < num_servers do
+#   num_servers = length(start_points)
+# end
+
 
 compute_end_points = fn (s, num_servers, n) ->
     k = (n / num_servers |> :math.ceil |> Kernel.trunc) - 1
@@ -48,7 +52,7 @@ pids = Enum.map(0..num_servers-1, fn (i) ->
 end)
 
 # send start and end values to each child node
-Enum.map(0..num_servers-1, fn (i) ->
+Enum.map(0..length(start_points) - 1, fn (i) ->
     start_point = Enum.fetch!(start_points, i)
     end_point = Enum.fetch!(end_points, i)
     {:ok, server_pid} = Enum.fetch!(pids, i)
