@@ -10,9 +10,8 @@ defmodule WorkerTest do
         # Initialize test params
         k = 24
         start_point = 1
-        work_unit = 40
-
-        Worker.run([k, start_point, work_unit, agent])
+        end_point = 40
+        Worker.run([k, start_point, end_point, agent])
         assert Counter.get(agent) == [25, 20, 9, 1]
     end
 end

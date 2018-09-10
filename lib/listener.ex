@@ -12,7 +12,7 @@ defmodule Listener do
     def get(server) do
         GenServer.call(server, {:retrieve})
     end
-    
+
 
     # Server API
     def init(:ok) do
