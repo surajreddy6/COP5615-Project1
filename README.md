@@ -21,14 +21,14 @@ CPU time: 80 ms Real time: 13 ms Time ratio: 6.153846153846154
 ```
 #### Running on multiple machines
 
-* Launch an Erlang VM on each machine using `iex --name <node_name>@<node_ip_address> --cookie <cookie_name>`
+* Launch an Erlang VM on each machine using `iex --name <node_name>@<node_ip_address> --cookie <cookie_name> -S mix`
 * Update `node_list` in `proj1_dist.exs`
 * On the supervisor node execute `elixir --name <supervisor_name>@<supervisor_ip_address> --cookie <cookie_name> -S mix run proj1_dist.exs N k `
 
 **Example :**
 ```
 # on child nodes
-$ iex --name foo --cookie monster
+$ iex --name foo --cookie monster -S mix
 
 # on supervisor node
 $ elixir --name boss --cookie monster -S mix run proj1_dist.exs 40 24
