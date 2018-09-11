@@ -47,12 +47,11 @@ Run the tests using `mix test`
 **Result for _N_ = 1000000 and _k_ = 4 :**
 ```
 $ mix run proj1.exs 1000000 4
-CPU time: 3505 ms Real time: 458 ms Time ratio: 7.652838427947598
 ```
 **Timing Result**
 ```
 $ time mix run proj1.exs 1000000 4
-mix run proj1.exs 1000000 4  4.52s user 0.08s system 449% cpu 1.023 total
+mix run proj1_new.exs 1000000 4  5.16s user 0.34s system 447% cpu 1.232 total
 ```
 **Largest Problem Solved :** _N_ = 1000000000 _k_ = 26. See `large_output.txt` for output.
 
