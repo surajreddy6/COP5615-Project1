@@ -19,6 +19,7 @@ $ mix run proj1.exs 10000 26
 3850
 ```
 #### Running on multiple machines
+Ran on three machines
 
 * Launch an Erlang VM on each machine using `iex --name <node_name>@<node_ip_address> --cookie <cookie_name> -S mix`
 * Update `node_list` in `proj1_dist.exs`
@@ -53,7 +54,7 @@ $ mix run proj1.exs 1000000 4
 $ time mix run proj1.exs 1000000 4
 mix run proj1_new.exs 1000000 4  5.16s user 0.34s system 447% cpu 1.232 total
 ```
-**Largest Problem Solved :** _N_ = 1000000000 _k_ = 26. See `large_output.txt` for output.
+**Largest Problem Solved :** _N_ = 100000000 _k_ = 26. See `large_output.txt` for output.
 
 
 ## Authors
