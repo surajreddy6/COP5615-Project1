@@ -5,14 +5,15 @@
 
 # list of remote child nodes
 node_list = [
-    :"fii@10.136.197.246",
-    :"bar@10.136.252.28"
+    :"aditi@Aditis-MacBook-Pro.ufl.edu",
+    :"suraj@Aditis-MacBook-Pro.ufl.edu"
 ]
 num_nodes = length(node_list)
 node_names = Enum.map(0..num_nodes-1, fn (i) ->
-   "NodeM" <> Integer.to_string(i) |> String.to_atom
+   "NodeD" <> Integer.to_string(i) |> String.to_atom
 end)
 
+# starting listener node
 {:ok, listener} = Listener.start_link([])
 
 #calculating start and end points for each child node based on input "n"
@@ -39,7 +40,7 @@ Enum.map(0..num_nodes-1, fn (i) ->
     end_point = Enum.fetch!(end_points, i)
     node_name = Enum.fetch!(node_names, i)
     node = Enum.fetch!(node_list, i)
-    Parent.compute({node_name, node}, [start_point, end_point, k, listener])
+    Parent.compute({node_name, node}, [start_point, end_point, k, n, listener])
 end)
 
 # wait for async node to complete computation

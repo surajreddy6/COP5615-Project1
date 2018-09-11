@@ -38,8 +38,6 @@ defmodule Child do
             {:ok, pid} = Enum.fetch!(pids, i)
             state_after_exec = :sys.get_state(pid, :infinity)
         end)
-        # # tasks = Enum.map(start_points, &Task.async(Worker, :run, [[k, &1, work_unit, counter]]))
-        # Enum.map(tasks, &Task.await(&1, :infinity)) # Large timeout
         state = Counter.get(counter)
         Listener.update(listener, state)
         {:noreply, state}

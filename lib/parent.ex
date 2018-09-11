@@ -9,16 +9,12 @@ defmodule Parent do
   GenServer.cast(server, {:compute, args})
   end
 
-
-
-
-
   def init(:ok) do
       {:ok, []}
   end
 
   def handle_cast({:compute, args}, state) do
-    [start_point, end_point, k, listener] = args
+    [start_point, end_point, k, n, listener] = args
     size = end_point - start_point + 1
     total_process_limit = 10000
     num_servers = 8
@@ -30,20 +26,17 @@ defmodule Parent do
         5
       end
 
-    # calculating start and end points for each child node based on input "n"
+    # calculating start and end points for each child node based on size
     start_points = :lists.seq(start_point, end_point, size/num_servers |> :math.ceil |> Kernel.trunc)
     compute_end_points = fn (s, num_servers, size) ->
         k = (size / num_servers |> :math.ceil |> Kernel.trunc) - 1
-        if s + k > size do
-            size
+        if s + k > n do
+            n
         else
             s + k
         end
     end
     end_points = Enum.map(start_points, &(compute_end_points.(&1, num_servers, size)))
-
-    # # starting GenServer on Listener
-    # {:ok, listener} = Listener.start_link([])
 
     # start num_servers GenServers
     pids = Enum.map(0..length(start_points)-1, fn (i) ->
@@ -63,11 +56,7 @@ defmodule Parent do
         {:ok, pid} = Enum.fetch!(pids, i)
         state_after_exec = :sys.get_state(pid, :infinity)
     end)
-
+    
     {:noreply, state}
   end
-
-
-
-
 end
