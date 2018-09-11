@@ -1,0 +1,11 @@
+$ time mix run proj1.exs 10000000 26
+25
+301
+454
+3850
+31966
+47569
+393925
+3261481
+4852834
+mix run proj1.exs 10000000 26  188.12s user 1.00s system 778% cpu 24.289 total
