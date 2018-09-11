@@ -8,21 +8,56 @@ Find _k_ consecutive numbers whose sum of squares is a perfect square.
 
 **Output :** The first number in the sequence for each set of consecutive integers printed on independent lines.
 
+#### Running on a single machine
+
 **Example :**
 ```
-$ mix run proj1.exs 40 24
+$ mix run proj1.exs 10000 26
+25
+301
+454
+3850
+```
+#### Running on multiple machines
+Ran on three machines
+
+* Launch an Erlang VM on each machine using `iex --name <node_name>@<node_ip_address> --cookie <cookie_name> -S mix`
+* Update `node_list` in `proj1_dist.exs`
+* On the supervisor node execute `elixir --name <supervisor_name>@<supervisor_ip_address> --cookie <cookie_name> -S mix run proj1_dist.exs N k `
+
+**Example :**
+```
+# on child nodes
+$ iex --name foo --cookie monster -S mix
+
+# on supervisor node
+$ elixir --name boss --cookie monster -S mix run proj1_dist.exs 40 24
 1
 9
 20
 25
 ```
-
 ## Running tests
 
 Run the tests using `mix test`
 
+## Results
+
+**Work Unit :** Through trial and error the optimal work unit size was found to be 100 for a large input _N_. To accomodate small input sizes we take the work unit size to be 5, again found using trial and error.
+
+**Result for _N_ = 1000000 and _k_ = 4 :**
+```
+$ mix run proj1.exs 1000000 4
+```
+**Timing Result**
+```
+$ time mix run proj1.exs 1000000 4
+mix run proj1_new.exs 1000000 4  5.16s user 0.34s system 447% cpu 1.232 total
+```
+**Largest Problem Solved :** _N_ = 10000000 _k_ = 26. See `large_output.txt` for output.
+
 
 ## Authors
 
-* **Aditi Malladi**
-* **Suraj Thanugundla**
+* **Aditi Malladi UFID: 9828-6321**
+* **Suraj Kumar Reddy Thanugundla UFID: 3100-9916**
