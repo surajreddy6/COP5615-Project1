@@ -17,7 +17,6 @@ $ mix run proj1.exs 10000 26
 301
 454
 3850
-CPU time: 80 ms Real time: 13 ms Time ratio: 6.153846153846154
 ```
 #### Running on multiple machines
 
@@ -53,7 +52,6 @@ CPU time: 3505 ms Real time: 458 ms Time ratio: 7.652838427947598
 **Timing Result**
 ```
 $ time mix run proj1.exs 1000000 4
-CPU time: 3505 ms Real time: 458 ms Time ratio: 7.652838427947598
 mix run proj1.exs 1000000 4  4.52s user 0.08s system 449% cpu 1.023 total
 ```
 **Largest Problem Solved :** _N_ = 1000000000 _k_ = 26. See `large_output.txt` for output.
