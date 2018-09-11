@@ -54,7 +54,7 @@ $ mix run proj1.exs 1000000 4
 $ time mix run proj1.exs 1000000 4
 mix run proj1_new.exs 1000000 4  5.16s user 0.34s system 447% cpu 1.232 total
 ```
-**Largest Problem Solved :** _N_ = 100000000 _k_ = 26. See `large_output.txt` for output.
+**Largest Problem Solved :** _N_ = 10000000 _k_ = 26. See `large_output.txt` for output.
 
 
 ## Authors
