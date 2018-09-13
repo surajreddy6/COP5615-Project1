@@ -16,7 +16,7 @@ defmodule Parent do
   def handle_cast({:compute, args}, state) do
     [start_point, end_point, k, n, listener] = args
     size = end_point - start_point + 1
-    total_process_limit = 10000
+    total_process_limit = 80000
     num_servers = 8
     server_process_limit = total_process_limit / num_servers |> :math.ceil |> Kernel.trunc
     work_unit =
@@ -56,7 +56,7 @@ defmodule Parent do
         {:ok, pid} = Enum.fetch!(pids, i)
         state_after_exec = :sys.get_state(pid, :infinity)
     end)
-    
+
     {:noreply, state}
   end
 end
