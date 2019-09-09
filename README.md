@@ -59,5 +59,5 @@ mix run proj1_new.exs 1000000 4  5.16s user 0.34s system 447% cpu 1.232 total
 
 ## Authors
 
-* **Aditi Malladi UFID: 9828-6321**
-* **Suraj Kumar Reddy Thanugundla UFID: 3100-9916**
+* **Aditi Malladi**
+* **Suraj Kumar Reddy Thanugundla**
